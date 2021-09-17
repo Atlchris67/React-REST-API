@@ -27,9 +27,6 @@
       "react-app/jest"
     ]
   },
-    "devDependencies": {
-    "js-cookie": "^3.3.2"
-  },
   "browserslist": {
     "production": [
       ">0.2%",

@@ -9,18 +9,22 @@ export default function UserSignUp() {
   const context = useContext(Context.Context)
   let history = useHistory();
 
-  const [name, setName] = useState('');
-  const [username, setUser] = useState('')
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [emailAddress, setEmail] = useState('')
   const [password, setPass] = useState('')
   const [errors,setErrors] = useState([])
   const change = (event) => {
     const value = event.target.value;
     switch (event.target.name) {
-      case "name":
-        setName(value);
+      case "firstName":
+        setFirstName(value);
         break;
-      case "username":
-        setUser(value);
+        case "lastName":
+          setLastName(value);
+          break;  
+      case "emailAddress":
+        setEmail(value);
         break;
       case "password":
         setPass(value);
@@ -32,18 +36,19 @@ export default function UserSignUp() {
 
   const submit = () => {
     // Create user
-    const user = {
-      name,
-      username,
+    const newUser = {
+      firstName,
+      lastName,
+      emailAddress,
       password,
     };
 
-    context.data.createUser(user)
+    context.data.createUser(newUser)
       .then( errors => {
         if (errors.length) {
           setErrors(errors)
         } else {
-          context.actions.signIn(username, password)
+          context.actions.signIn(newUser.emailAddress, newUser.password)
             .then(() => {
               history.push('/authenticated');    
             });
@@ -70,24 +75,30 @@ export default function UserSignUp() {
             submitButtonText="Sign Up"
             elements={() => (
               <React.Fragment>
+                <label for="firstName">First Name</label>
                 <input 
-                  id="name" 
-                  name="name" 
+                  id="firstName" 
+                  name="firstName" 
                   type="text"
-                  onChange={change} 
-                  placeholder="Name" />
+                  onChange={change}  />
+                <label for="lastName">Last Name</label>
                 <input 
-                  id="username" 
-                  name="username" 
+                  id="lastMame" 
+                  name="lastName" 
                   type="text"
-                  onChange={change} 
-                  placeholder="User Name" />
+                  onChange={change} />
+                <label for="emailAddress">Email Address</label>  
+                <input 
+                  id="emailAddress" 
+                  name="emailAddress" 
+                  type="text"
+                  onChange={change} />
+                <label for="password">Password</label>
                 <input 
                   id="password" 
                   name="password"
                   type="password"
-                  onChange={change} 
-                  placeholder="Password" />
+                  onChange={change} />
               </React.Fragment>
             )} />
           <p>

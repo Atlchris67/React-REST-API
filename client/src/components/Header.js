@@ -10,11 +10,11 @@ export default function Header() {
   return (
     <div className="header">
         <div className="bounds">
-          <h1 className="header--logo">MyAuth</h1>
+          <h1 className="header--logo"><a href="index.html">Courses</a></h1>
           <nav>
             {authUser ? (
               <React.Fragment>
-                <span>Welcome, {authUser.name}!</span>
+                <span>Welcome, {authUser.firstName}!</span>
                 <Link to="/signout">Sign Out</Link>
               </React.Fragment>
             ) : (

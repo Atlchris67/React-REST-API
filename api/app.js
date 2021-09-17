@@ -8,6 +8,7 @@ const users = require('./routes/users');
 const courses = require('./routes/courses');
 const { sequelize } = require('./models');
 const SequelizeAuto = require('sequelize-auto');
+const cors = require('cors');
 var initModels = require("./models/init-models").initModels; 
 var config = require("./config/config");
 
@@ -19,7 +20,7 @@ const app = express();
 
 // Setup request body JSON parsing.
 app.use(express.json());
-
+app.use(cors());
 // setup morgan which gives us http request logging
 app.use(morgan('dev'));
 

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import Cookies from 'js-cookie';
-import Data from './Data';
+import React, {useState, useEffect, useContext} from "react";
+import {useHistory} from "react-router-dom";
+import Context from "../Context";
 
 export const Context = React.createContext(); 
 
@@ -44,10 +44,27 @@ export class Provider extends Component {
       const cookieOptions = {
         expires: 1 // 1 day
       };
-      Cookies.set('authenticatedUser', JSON.stringify(user), {cookieOptions});
+      Cookies.set('authenticatedUser', JSON.stringify(user), cookieOptions);
     }
     return user;
   }
+
+  createUser = async (newUser) => {
+    const user = await this.data.createUser(newUser.firstName, newUser.lastName, newUser.emailAddress, newUser.password);
+    if (user !== null) {
+      this.setState(() => {
+        return {
+          authenticatedUser: user,
+        };
+      });
+      const cookieOptions = {
+        expires: 1 // 1 day
+      };
+      Cookies.set('authenticatedUser', JSON.stringify(user), cookieOptions);
+    }
+    return user;
+  }
+
 
   signOut = () => {
     this.setState({ authenticatedUser: null });
