@@ -2,7 +2,7 @@ import React,{ useContext } from 'react';
 import Context from '../Context'
 
 export default () => {
-  const context = useContext(Context.Context)
+  const context = useContext(Context.appContext)
 
   const authUser = context.authenticatedUser;
   return (

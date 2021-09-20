@@ -6,7 +6,7 @@ import Context from '../Context'
 
 
 export default function UserSignUp() {
-  const context = useContext(Context.Context)
+  const context = useContext(Context.appContext)
   let history = useHistory();
 
   const [firstName, setFirstName] = useState('');
@@ -49,9 +49,10 @@ export default function UserSignUp() {
           setErrors(errors)
         } else {
           context.actions.signIn(newUser.emailAddress, newUser.password)
-            .then(() => {
-              history.push('/authenticated');    
-            });
+            .then(() => 
+              //let history = useHistory();
+              history.push('/authenticated')    
+            );
         }
       })
       .catch((err) => {

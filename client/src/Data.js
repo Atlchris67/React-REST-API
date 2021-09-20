@@ -46,10 +46,48 @@ export default class Data {
       return response.json().then(data => {
         return data.errors;
       })
-     } else {
-        throw new Error();
-      }
+    } else {
+      throw new Error();
     }
+  }
+
+  async getCourse(courseId) {
+    const response = await this.api(`/courses/${courseId}`, 'GET', null, true);
+    if (response.status === 200) {
+      return response.json().then(data => data);
+    } else if (response.status === 400) if (response.status === 400) {
+      return response.json().then(data => {
+        return data.errors;
+      })
+    } else {
+      throw new Error();
+    }
+  };
+
+  async updateCourse(course, user ) {
+    const response = await this.api(`/courses/${course.id}`, 'PUT', course, true, {...user});
+    if (response.status === 200) {
+      return response.json().then(data => data);
+    } else if (response.status === 400) {
+      return response.json().then(data => {
+        return data.errors;
+      })
+    } else {
+      throw new Error();
+    }
+  };
+
+  async deleteCourse(courseId, user){
+    const response = await this.api(`/courses/${courseId}`, 'DELETE', null, true, {...user});  
+
+      if (res.status === 204) {
+          return [];
+      } else if (res.status === 400) {
+          return res.json().then(data => data.errors);
+      } else {
+          throw new Error();
+      }
+  }
 
   async createUser(user) {
     const response = await this.api('/users', 'POST', user);

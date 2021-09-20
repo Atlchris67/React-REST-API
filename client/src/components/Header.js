@@ -4,7 +4,7 @@ import Context from '../Context'
 
 
 export default function Header() {
-  const that = useContext(Context.Context)
+  const that = useContext(Context.appContext)
   const authUser = that.authenticatedUser;
 
   return (

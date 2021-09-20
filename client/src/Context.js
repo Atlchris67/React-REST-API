@@ -1,8 +1,15 @@
-import React, {useState, useEffect, useContext} from "react";
-import {useHistory} from "react-router-dom";
-import Context from "../Context";
+import React, {useState, useEffect, useContext, Component} from "react";
 
-export const Context = React.createContext(); 
+
+import {useHistory} from "react-router-dom";
+//import Context from "../Context";
+import Cookies from "js-cookie";
+
+// import api request methods
+import Data from "./Data";
+
+export const appContext = React.createContext(); 
+
 
 export class Provider extends Component {
 
@@ -26,9 +33,9 @@ export class Provider extends Component {
       },
     };
     return (
-      <Context.Provider value={value}>
+      <appContext.Provider value={value}>
         {this.props.children}
-      </Context.Provider>  
+      </appContext.Provider>  
     );
   }
 
@@ -72,7 +79,7 @@ export class Provider extends Component {
   }
 }
 
-export const Consumer = Context.Consumer;
+export const Consumer = appContext.Consumer;
 
 /**
  * A higher-order component that wraps the provided component in a Context Consumer component.
@@ -83,11 +90,11 @@ export const Consumer = Context.Consumer;
  export function withContext(Component) {
   return function ContextComponent(props) {
     return (
-      <Context.Consumer>
+      <appContext.Consumer>
         {context => <Component {...props} context={context} />}
-      </Context.Consumer>
+      </appContext.Consumer>
     );
   }
 }
 
-export default {withContext, Context}
+export default {withContext, appContext}

@@ -4,14 +4,31 @@ import Context from '../Context'
 export default () => {
   const context = useContext(Context.Context)
 
-  const authUser = context.authenticatedUser;
+  const [courseArray, setCourseArray] = React.useState([]);
+
+  useEffect(() => {
+      context.getCourses()
+      .then(courses => () => setCourseArray(courses))
+      .catch(() => history.push('/error'));
+  },[context.courses, history]);
+          
+
+
+  
   return (
 
     <div class="wrap main--grid">
-        <a className="course--module course--link" href="course-detail.html">
-            <h2 className="course--label">Course</h2>
-            <h3 className="course--title">Build a Basic Bookcase</h3>
-        </a>
+        
+          {courseArray.map((course, index) => {
+              return (
+              <a key={index}  className="course--module course--link" href={`"/courses/${course.id}"`}>
+                  <h2 className="course--label">Course</h2>
+                  <h3 className="course--title">{course.title}</h3>
+              </a>
+            )
+          })}
+        
+
 
         <a className="course--module course--add--module" href="create-course.html">
             <span className="course--add--title">
